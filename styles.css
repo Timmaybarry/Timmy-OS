@@ -1,0 +1,13 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+body { max-width: 720px; margin: 0 auto; padding: 1rem; }
+header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+nav { display: flex; gap: .5rem; align-items: center; }
+section { margin: 1.5rem 0; }
+textarea, input:not([type=checkbox]) { width: 100%; box-sizing: border-box; padding: .5rem; font: inherit; }
+form { display: flex; gap: .5rem; }
+ul { list-style: none; padding: 0; }
+li { display: flex; gap: .5rem; align-items: center; padding: .25rem 0; }
+li span { flex: 1; }
+.done { text-decoration: line-through; opacity: .6; }
+footer { display: flex; gap: 1rem; align-items: center; }
+footer label { cursor: pointer; text-decoration: underline; }

@@ -1,0 +1,9 @@
+{
+  "name": "Timmy OS",
+  "short_name": "Timmy OS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f6feb",
+  "icons": []
+}

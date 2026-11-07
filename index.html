@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timmy OS</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Timmy OS</h1>
+    <nav>
+      <button id="prev" aria-label="Previous day">←</button>
+      <strong id="date"></strong>
+      <button id="next" aria-label="Next day">→</button>
+      <button id="todayBtn">Today</button>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Journal</h2>
+      <textarea id="journal" rows="10" placeholder="How was your day?"></textarea>
+    </section>
+    <section>
+      <h2>Plan</h2>
+      <ul id="tasks"></ul>
+      <form id="taskForm"><input id="taskText" placeholder="Add a task" autocomplete="off"><button>Add</button></form>
+    </section>
+    <section>
+      <h2>Habits</h2>
+      <ul id="habits"></ul>
+      <form id="habitForm"><input id="habitName" placeholder="New habit" autocomplete="off"><button>Add</button></form>
+    </section>
+  </main>
+  <footer>
+    <button id="export">Export backup</button>
+    <label>Import backup <input id="import" type="file" accept="application/json" hidden></label>
+  </footer>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
