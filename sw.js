@@ -1,5 +1,5 @@
-const CACHE = "timmy-os-v2";
-const ASSETS = ["./", "./index.html", "./styles.css", "./manifest.webmanifest", "./src/app.js", "./src/logic.js", "./src/store.js"];
+const CACHE = "timmy-os-v3";
+const ASSETS = ["./", "./index.html", "./styles.css", "./manifest.webmanifest", "./src/app.js", "./src/logic.js", "./src/store.js", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));

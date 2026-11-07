@@ -12,3 +12,16 @@ jobs:
         with:
           node-version: 22
       - run: npm test
+  boot-sector:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y nasm
+      - name: Assemble boot sector
+        run: make -C os
+      - name: Verify 512 bytes and 0x55AA signature
+        run: |
+          test "$(stat -c %s os/timmy.img)" -eq 512
+          test "$(tail -c2 os/timmy.img | od -An -tx1 | tr -d ' \n')" = "55aa"
+      - name: Committed timmy.img is up to date
+        run: cmp os/timmy.img timmy.img
