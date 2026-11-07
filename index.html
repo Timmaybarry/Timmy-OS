@@ -4,40 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Timmy OS</title>
+  <meta name="theme-color" content="#1f6feb">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
+  <header class="top">
     <h1>Timmy OS</h1>
-    <nav>
-      <button id="prev" aria-label="Previous day">←</button>
-      <strong id="date"></strong>
-      <button id="next" aria-label="Next day">→</button>
+    <div class="tabs" role="tablist" id="tabs">
+      <button data-view="month">Month</button>
+      <button data-view="week">Week</button>
+      <button data-view="day">Day</button>
+      <button data-view="habits">Habits</button>
+    </div>
+    <nav class="nav">
+      <button id="prev" aria-label="Previous">‹</button>
+      <strong id="title"></strong>
+      <button id="next" aria-label="Next">›</button>
       <button id="todayBtn">Today</button>
     </nav>
   </header>
-  <main>
-    <section>
-      <h2>Journal</h2>
-      <textarea id="journal" rows="10" placeholder="How was your day?"></textarea>
-    </section>
-    <section>
-      <h2>Plan</h2>
-      <ul id="tasks"></ul>
-      <form id="taskForm"><input id="taskText" placeholder="Add a task" autocomplete="off"><button>Add</button></form>
-    </section>
-    <section>
-      <h2>Habits</h2>
-      <ul id="habits"></ul>
-      <form id="habitForm"><input id="habitName" placeholder="New habit" autocomplete="off"><button>Add</button></form>
-    </section>
-  </main>
+  <main id="view"></main>
   <footer>
+    <button id="exportIcs" title="Import this file into Google Calendar">Export to Google Calendar (.ics)</button>
     <button id="export">Export backup</button>
-    <label>Import backup <input id="import" type="file" accept="application/json" hidden></label>
+    <label class="btn">Import backup <input id="import" type="file" accept="application/json" hidden></label>
   </footer>
   <script type="module" src="src/app.js"></script>
 </body>

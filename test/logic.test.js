@@ -32,8 +32,8 @@ test("toggleCheckin adds and removes", () => {
 import { normalizeState } from "../src/logic.js";
 
 test("normalizeState rejects malformed data", () => {
-  assert.deepEqual(normalizeState(null), { journal: {}, tasks: [], habits: [] });
-  assert.deepEqual(normalizeState({ journal: null, tasks: {}, habits: "x" }), { journal: {}, tasks: [], habits: [] });
+  assert.deepEqual(normalizeState(null), { journal: {}, tasks: [], habits: [], events: [] });
+  assert.deepEqual(normalizeState({ journal: null, tasks: {}, habits: "x" }), { journal: {}, tasks: [], habits: [], events: [] });
 });
 
 test("normalizeState keeps valid entries and drops bad ones", () => {
@@ -45,4 +45,21 @@ test("normalizeState keeps valid entries and drops bad ones", () => {
   assert.deepEqual(s.journal, { "2026-11-07": "hi" });
   assert.equal(s.tasks.length, 1);
   assert.deepEqual(s.habits[0].checkins, ["2026-11-07"]);
+});
+
+import { monthGrid, weekStart, toIcs } from "../src/logic.js";
+
+test("weekStart is Monday and monthGrid covers whole month", () => {
+  assert.equal(weekStart("2026-11-08"), "2026-11-02");
+  const g = monthGrid("2026-11-15");
+  assert.equal(g[0][0], "2026-10-26");
+  assert.equal(g.at(-1)[6], "2026-12-06");
+  assert.ok(g.every((w) => w.length === 7));
+});
+
+test("toIcs escapes text and emits timed and all-day events", () => {
+  const ics = toIcs({ events: [{ id: "a", title: "Hi, you", date: "2026-11-07", start: "09:00", end: "10:00" }], tasks: [{ id: "t", text: "x", date: "2026-11-07", done: false }] }, "S");
+  assert.match(ics, /SUMMARY:Hi\\, you/);
+  assert.match(ics, /DTSTART:20261107T090000/);
+  assert.match(ics, /DTSTART;VALUE=DATE:20261107/);
 });

@@ -1,4 +1,4 @@
-const CACHE = "timmy-os-v3";
+const CACHE = "timmy-os-v4";
 const ASSETS = ["./", "./index.html", "./styles.css", "./manifest.webmanifest", "./src/app.js", "./src/logic.js", "./src/store.js", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", (e) => {
