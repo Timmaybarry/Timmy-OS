@@ -25,3 +25,7 @@ npm test    # unit tests for streak/date logic
 - Habit schedules (non-daily), tags and mood on journal entries
 - Migrate storage to IndexedDB; search across entries
 - Icons and encrypted backups
+
+## Bootable OS
+
+See [`os/`](os/README.md) for the bootable Timmy OS.
