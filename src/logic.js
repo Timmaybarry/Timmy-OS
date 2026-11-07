@@ -43,6 +43,32 @@ export function emptyState() {
   return { journal: {}, tasks: [], habits: [] };
 }
 
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+
+// Coerce untrusted data (localStorage or imported file) into a safe state shape.
+export function normalizeState(data) {
+  const s = emptyState();
+  if (!isObj(data)) return s;
+  if (isObj(data.journal)) {
+    for (const [k, v] of Object.entries(data.journal)) if (typeof v === "string" && v) s.journal[k] = v;
+  }
+  if (Array.isArray(data.tasks)) {
+    s.tasks = data.tasks
+      .filter((t) => isObj(t) && typeof t.text === "string" && typeof t.date === "string")
+      .map((t) => ({ id: String(t.id ?? uid()), text: t.text, date: t.date, done: t.done === true }));
+  }
+  if (Array.isArray(data.habits)) {
+    s.habits = data.habits
+      .filter((h) => isObj(h) && typeof h.name === "string")
+      .map((h) => ({
+        id: String(h.id ?? uid()),
+        name: h.name,
+        checkins: Array.isArray(h.checkins) ? h.checkins.filter((d) => typeof d === "string") : [],
+      }));
+  }
+  return s;
+}
+
 export function uid() {
   return Math.random().toString(36).slice(2, 10);
 }

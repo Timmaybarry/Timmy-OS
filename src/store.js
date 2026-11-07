@@ -1,17 +1,21 @@
-import { emptyState } from "./logic.js";
+import { emptyState, normalizeState } from "./logic.js";
 
 const KEY = "timmy-os:v1";
 
 export function load() {
   try {
-    return { ...emptyState(), ...JSON.parse(localStorage.getItem(KEY) || "{}") };
+    return normalizeState(JSON.parse(localStorage.getItem(KEY) || "{}"));
   } catch {
     return emptyState();
   }
 }
 
 export function save(state) {
-  localStorage.setItem(KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+  } catch (err) {
+    console.error("Could not save", err);
+  }
 }
 
 export function exportJson(state) {
@@ -19,6 +23,5 @@ export function exportJson(state) {
 }
 
 export function importJson(text) {
-  const data = JSON.parse(text);
-  return { ...emptyState(), ...data };
+  return normalizeState(JSON.parse(text));
 }

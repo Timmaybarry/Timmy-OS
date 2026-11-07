@@ -28,3 +28,21 @@ test("toggleCheckin adds and removes", () => {
   assert.deepEqual(toggleCheckin([], "2026-11-07"), ["2026-11-07"]);
   assert.deepEqual(toggleCheckin(["2026-11-07"], "2026-11-07"), []);
 });
+
+import { normalizeState } from "../src/logic.js";
+
+test("normalizeState rejects malformed data", () => {
+  assert.deepEqual(normalizeState(null), { journal: {}, tasks: [], habits: [] });
+  assert.deepEqual(normalizeState({ journal: null, tasks: {}, habits: "x" }), { journal: {}, tasks: [], habits: [] });
+});
+
+test("normalizeState keeps valid entries and drops bad ones", () => {
+  const s = normalizeState({
+    journal: { "2026-11-07": "hi", "2026-11-08": "", x: 5 },
+    tasks: [{ id: "a", text: "t", date: "2026-11-07", done: true }, { text: 1 }, null],
+    habits: [{ id: "h", name: "run", checkins: ["2026-11-07", 3] }],
+  });
+  assert.deepEqual(s.journal, { "2026-11-07": "hi" });
+  assert.equal(s.tasks.length, 1);
+  assert.deepEqual(s.habits[0].checkins, ["2026-11-07"]);
+});
