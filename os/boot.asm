@@ -10,6 +10,7 @@ start:
     mov ss, ax
     mov sp, 0x7c00
     sti
+    cld
     call clear
     mov si, banner
     call puts
